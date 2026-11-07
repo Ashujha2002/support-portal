@@ -1,3 +1,4 @@
+
 import { describe, it, expect, vi } from "vitest";
 
 import { TicketService } from "../src/TicketService.js";
@@ -57,6 +58,65 @@ describe("TicketService", () => {
       new TicketService(null);
     }).toThrow("A ticket repository is required.");
 
+  });
+
+  it("finds an existing ticket using reference and email", () => {
+
+    const ticket = {
+      id: "NST-TEST-001",
+      name: "John Smith",
+      email: "john@example.com",
+      status: "Open"
+    };
+
+    const repository = {
+      findByIdAndEmail: vi.fn(() => ticket)
+    };
+
+    const service = new TicketService(repository);
+
+    const result = service.findTicket(
+      "NST-TEST-001",
+      "JOHN@example.com"
+    );
+
+    expect(result).toEqual(ticket);
+
+    expect(repository.findByIdAndEmail).toHaveBeenCalledWith(
+      "NST-TEST-001",
+      "john@example.com"
+    );
+  });
+
+  it("returns null when a ticket is not found", () => {
+
+    const repository = {
+      findByIdAndEmail: vi.fn(() => null)
+    };
+
+    const service = new TicketService(repository);
+
+    const result = service.findTicket(
+      "NST-INVALID",
+      "john@example.com"
+    );
+
+    expect(result).toBeNull();
+  });
+
+  it("returns null when tracking information is missing", () => {
+
+    const repository = {
+      findByIdAndEmail: vi.fn()
+    };
+
+    const service = new TicketService(repository);
+
+    expect(service.findTicket("", "john@example.com")).toBeNull();
+
+    expect(service.findTicket("NST-TEST-001", "")).toBeNull();
+
+    expect(repository.findByIdAndEmail).not.toHaveBeenCalled();
   });
 
 });
