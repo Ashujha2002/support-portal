@@ -1,0 +1,24 @@
+{
+  "name": "support-portal",
+  "version": "1.0.0",
+  "description": "A static page that helps customers find support information.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashujha2002/support-portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Ashujha2002/support-portal/issues"
+  },
+  "homepage": "https://github.com/Ashujha2002/support-portal#readme",
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  }
+}
