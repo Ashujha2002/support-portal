@@ -89,3 +89,24 @@ button:hover {
     padding: 16px;
   }
 }
+
+
+/* US-02: Support request tracking */
+
+#trackingMessage {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+#trackingForm {
+  margin-top: 15px;
+}
+
+#trackingForm button {
+  width: 100%;
+}
+
+#trackingForm input:focus {
+  outline: 2px solid #145a8d;
+  outline-offset: 2px;
+}

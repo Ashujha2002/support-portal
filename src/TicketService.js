@@ -1,3 +1,4 @@
+
 import { validateTicketInput } from "./TicketValidator.js";
 
 export class TicketService {
@@ -9,9 +10,7 @@ export class TicketService {
     this.repository = repository;
 
     this.idGenerator = options.idGenerator ||
-      (() => {
-        return `NST-${crypto.randomUUID()}`;
-      });
+      (() => `NST-${crypto.randomUUID()}`);
 
     this.clock = options.clock || (() => new Date());
   }
@@ -37,5 +36,19 @@ export class TicketService {
     this.repository.save(ticket);
 
     return ticket;
+  }
+
+  findTicket(ticketId, email) {
+    const normalizedId = (ticketId || "").trim();
+    const normalizedEmail = (email || "").trim().toLowerCase();
+
+    if (!normalizedId || !normalizedEmail) {
+      return null;
+    }
+
+    return this.repository.findByIdAndEmail(
+      normalizedId,
+      normalizedEmail
+    );
   }
 }
